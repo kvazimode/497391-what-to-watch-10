@@ -6,8 +6,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+const mock = {
+  cardCount: 20,
+};
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App cardCount={mock.cardCount}/>
   </React.StrictMode>,
 );
