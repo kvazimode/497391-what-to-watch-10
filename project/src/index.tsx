@@ -8,10 +8,18 @@ const root = ReactDOM.createRoot(
 
 const mock = {
   cardCount: 20,
+  promoTitle: 'The Grand Budapest Hotel',
+  promoGenre: 'Drama',
+  promoRelease: 2014
 };
 
 root.render(
   <React.StrictMode>
-    <App cardCount={mock.cardCount}/>
+    <App
+      promoTitle={mock.promoTitle}
+      promoGenre={mock.promoGenre}
+      promoRelease={mock.promoRelease}
+      cardCount={mock.cardCount}
+    />
   </React.StrictMode>,
 );
