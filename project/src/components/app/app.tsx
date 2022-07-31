@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainScreen from '../../pages/main/main';
+import NotFound from '../../pages/not-found/not-found';
 
 type AppScreenProps = {
   cardCount: number;
@@ -21,6 +22,7 @@ function App({cardCount, promoTitle, promoGenre, promoRelease}: AppScreenProps):
           />
         }
         />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
