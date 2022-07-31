@@ -6,8 +6,20 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+const mock = {
+  cardCount: 20,
+  promoTitle: 'The Grand Budapest Hotel',
+  promoGenre: 'Drama',
+  promoRelease: 2014
+};
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App
+      promoTitle={mock.promoTitle}
+      promoGenre={mock.promoGenre}
+      promoRelease={mock.promoRelease}
+      cardCount={mock.cardCount}
+    />
   </React.StrictMode>,
 );
