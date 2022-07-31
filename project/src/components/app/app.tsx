@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainScreen from '../../pages/main/main';
 
 type AppScreenProps = {
@@ -9,12 +10,19 @@ type AppScreenProps = {
 
 function App({cardCount, promoTitle, promoGenre, promoRelease}: AppScreenProps): JSX.Element {
   return (
-    <MainScreen
-      promoTitle={promoTitle}
-      promoGenre={promoGenre}
-      promoRelease={promoRelease}
-      cardCount={cardCount}
-    />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={
+          <MainScreen
+            promoTitle={promoTitle}
+            promoGenre={promoGenre}
+            promoRelease={promoRelease}
+            cardCount={cardCount}
+          />
+        }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
