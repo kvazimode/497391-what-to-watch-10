@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function Logo(): JSX.Element {
+function Logo(): JSX.Element {
   return (
     <div className="logo">
       <Link to='/' className="logo__link">
@@ -11,3 +11,5 @@ export default function Logo(): JSX.Element {
     </div>
   );
 }
+
+export default Logo;
