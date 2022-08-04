@@ -1,11 +1,23 @@
+import { PointerEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { FilmCard as FilmCardProps } from '../../types/film';
 
-function FilmCard(props: FilmCardProps): JSX.Element {
+type FilmCardAction = {
+  onPointerOver: (id: number) => void;
+  onPointerOut: () => void;
+}
+
+type ActiveFilmCard = FilmCardProps & FilmCardAction
+
+function FilmCard(props: ActiveFilmCard): JSX.Element {
   const {id, name, previewImage} = props;
   return (
     <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
+      <div
+        className="small-film-card__image"
+        onPointerOver={(evt: PointerEvent<HTMLDivElement>) => props.onPointerOver(id)}
+        onPointerOut={() => props.onPointerOut()}
+      >
         <img src={previewImage} alt={name} width={280} height={175} />
       </div>
       <h3 className="small-film-card__title">
