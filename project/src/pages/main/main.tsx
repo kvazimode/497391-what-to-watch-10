@@ -1,4 +1,3 @@
-import FilmCard from '../../components/film-card/film-card';
 import Promo from '../../components/promo/promo';
 import Catalog from '../../components/catalog/catalog';
 import Footer from '../../components/footer/footer';
@@ -19,15 +18,7 @@ function MainScreen({cardCount, promoTitle, promoGenre, promoRelease}: MainScree
     <>
       <Promo promoTitle={promoTitle} promoGenre={promoGenre} promoRelease={promoRelease}/>
       <div className="page-content">
-        <section className="catalog">
-          <Catalog />
-          <div className="catalog__films-list">
-            {cards.map((item) => <FilmCard key={item} />)}
-          </div>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
+        <Catalog cards={cards}/>
         <Footer />
       </div>
     </>

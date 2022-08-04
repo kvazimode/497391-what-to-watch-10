@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { FilmCard } from '../../types/film-card';
+import { FilmCard as FilmCardProps } from '../../types/film-card';
 
-function FilmCard(props: FilmCard): JSX.Element {
+function FilmCard(props: FilmCardProps): JSX.Element {
   const {id, name, posterImage} = props;
   return (
     <article className="small-film-card catalog__films-card">
