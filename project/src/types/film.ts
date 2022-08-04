@@ -1,8 +1,11 @@
 export type FilmCard = {
   id: number;
   name: string;
-  posterImage: string;
   previewImage: string;
+}
+
+export type FilmExtra = {
+  posterImage: string;
   backgroundImage: string;
   backgroundColor: string;
   videoLink: string;
@@ -17,3 +20,5 @@ export type FilmCard = {
   released: number;
   isFavorite: boolean;
 }
+
+export type Film = FilmCard & FilmExtra
