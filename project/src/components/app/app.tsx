@@ -9,13 +9,16 @@ import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {Film as FilmProp} from '../../types/film';
+import {PlayerData} from '../../types/player';
 
 type AppScreenProps = {
   promoId: number;
   films: FilmProp[];
+  playerMock: PlayerData;
 }
 
-function App({promoId, films}: AppScreenProps): JSX.Element {
+function App({promoId, films, playerMock}: AppScreenProps): JSX.Element {
+  const {source, film} = playerMock;
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +43,7 @@ function App({promoId, films}: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<Player />} />
+        <Route path={AppRoute.Player} element={<Player source={source} film={film}/>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
