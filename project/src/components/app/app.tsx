@@ -31,8 +31,8 @@ function App({promoId, films, playerMock}: AppScreenProps): JSX.Element {
         />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authStatus={AuthStatus.NoAuth}>
-            <MyList />
+          <PrivateRoute authStatus={AuthStatus.Auth}>
+            <MyList films={films} />
           </PrivateRoute>
         }
         />
