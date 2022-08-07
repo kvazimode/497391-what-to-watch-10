@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import films from './mocks/films';
 import {playerMock} from './mocks/player';
+import {reviewMock} from './mocks/review';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -18,6 +19,7 @@ root.render(
       promoId={Setting.promoId}
       films={films}
       playerMock={playerMock}
+      reviewMock={reviewMock}
     />
   </React.StrictMode>,
 );

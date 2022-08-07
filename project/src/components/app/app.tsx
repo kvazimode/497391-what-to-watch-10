@@ -10,15 +10,18 @@ import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {Film as FilmProp} from '../../types/film';
 import {PlayerData} from '../../types/player';
+import {ReviewPage} from '../../types/review-page';
 
 type AppScreenProps = {
   promoId: number;
   films: FilmProp[];
   playerMock: PlayerData;
+  reviewMock: ReviewPage;
 }
 
-function App({promoId, films, playerMock}: AppScreenProps): JSX.Element {
+function App({promoId, films, playerMock, reviewMock}: AppScreenProps): JSX.Element {
   const {source, film} = playerMock;
+  const {id, filmName, poster, bg} = reviewMock;
   return (
     <BrowserRouter>
       <Routes>
@@ -38,8 +41,8 @@ function App({promoId, films, playerMock}: AppScreenProps): JSX.Element {
         />
         <Route path={AppRoute.Film} element={<Film />} />
         <Route path={AppRoute.AddReview} element={
-          <PrivateRoute authStatus={AuthStatus.NoAuth}>
-            <AddReview />
+          <PrivateRoute authStatus={AuthStatus.Auth}>
+            <AddReview id={id} filmName={filmName} poster={poster} bg={bg}/>
           </PrivateRoute>
         }
         />
