@@ -17,7 +17,16 @@ function FilmsList({films}: FilmListProp): JSX.Element {
 
   return (
     <div className="catalog__films-list">
-      {films.map((item) => <FilmCard onPointerOver={handlePointerOver} onPointerOut={handlePointerOut} key={item.id} id={item.id} name={item.name} previewImage={item.previewImage}/>)}
+      {films.map((item) => (
+        <FilmCard
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          previewImage={item.previewImage}
+          onPointerOver={handlePointerOver}
+          onPointerOut={handlePointerOut}
+        />)
+      )}
     </div>
   );
 }

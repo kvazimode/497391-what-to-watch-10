@@ -19,11 +19,25 @@ function ReviewForm(): JSX.Element {
       <form action="#" className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {stars.map((starNumber) => <ReviewStar key={starNumber} starNumber={starNumber} rating={rating} inputHandler={ratingChangeHandler}/>)}
+            {stars.map((starNumber) => (
+              <ReviewStar
+                key={starNumber}
+                starNumber={starNumber}
+                rating={rating}
+                inputHandler={ratingChangeHandler}
+              />)
+            )}
           </div>
         </div>
         <div className="add-review__text">
-          <textarea onChange={textChangeHandler} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} />
+          <textarea
+            className="add-review__textarea"
+            name="review-text"
+            id="review-text"
+            placeholder="Review text"
+            value={comment}
+            onChange={textChangeHandler}
+          />
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit">Post</button>
           </div>
