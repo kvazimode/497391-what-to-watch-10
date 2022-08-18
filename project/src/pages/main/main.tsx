@@ -1,33 +1,29 @@
-import FilmCard from '../../components/film-card/film-card';
 import Promo from '../../components/promo/promo';
 import Catalog from '../../components/catalog/catalog';
 import Footer from '../../components/footer/footer';
+import {Film} from '../../types/film';
 
 type MainScreenProps = {
-  cardCount: number;
-  promoTitle: string;
-  promoGenre: string;
-  promoRelease: number;
+  promoId: number;
+  films: Film[];
 };
 
-function MainScreen({cardCount, promoTitle, promoGenre, promoRelease}: MainScreenProps): JSX.Element {
-  const cards: number[] = [];
-  for (let i = 0; i < cardCount; i++) {
-    cards.push(i);
+function MainScreen({promoId, films}: MainScreenProps): JSX.Element {
+  let promoTitle = 'Promo film not found';
+  let promoGenre = '';
+  let promoRelease = 0;
+  const promo = films.find((item) => item.id === promoId);
+  if (promo) {
+    promoTitle = promo.name;
+    promoGenre = promo.genre;
+    promoRelease = promo.released;
   }
+
   return (
     <>
       <Promo promoTitle={promoTitle} promoGenre={promoGenre} promoRelease={promoRelease}/>
       <div className="page-content">
-        <section className="catalog">
-          <Catalog />
-          <div className="catalog__films-list">
-            {cards.map((item) => <FilmCard key={item} />)}
-          </div>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
+        <Catalog films={films}/>
         <Footer />
       </div>
     </>

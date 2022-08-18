@@ -8,42 +8,45 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {Film as FilmProp} from '../../types/film';
+import {PlayerData} from '../../types/player';
+import {ReviewPage} from '../../types/review-page';
 
 type AppScreenProps = {
-  cardCount: number;
-  promoTitle: string;
-  promoGenre: string;
-  promoRelease: number;
+  promoId: number;
+  films: FilmProp[];
+  playerMock: PlayerData;
+  reviewMock: ReviewPage;
 }
 
-function App({cardCount, promoTitle, promoGenre, promoRelease}: AppScreenProps): JSX.Element {
+function App({promoId, films, playerMock, reviewMock}: AppScreenProps): JSX.Element {
+  const {source, film} = playerMock;
+  const {id, filmName, poster, bg} = reviewMock;
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={
           <MainScreen
-            promoTitle={promoTitle}
-            promoGenre={promoGenre}
-            promoRelease={promoRelease}
-            cardCount={cardCount}
+            promoId={promoId}
+            films={films}
           />
         }
         />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authStatus={AuthStatus.NoAuth}>
-            <MyList />
+          <PrivateRoute authStatus={AuthStatus.Auth}>
+            <MyList films={films} />
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Film} element={<Film />} />
         <Route path={AppRoute.AddReview} element={
-          <PrivateRoute authStatus={AuthStatus.NoAuth}>
-            <AddReview />
+          <PrivateRoute authStatus={AuthStatus.Auth}>
+            <AddReview id={id} filmName={filmName} poster={poster} bg={bg}/>
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<Player />} />
+        <Route path={AppRoute.Player} element={<Player source={source} film={film}/>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
