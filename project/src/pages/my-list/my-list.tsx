@@ -27,7 +27,7 @@ function MyList({films}: MyListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {films.map((item) => <FilmCard key={item.id} id={item.id} name={item.name} previewImage={item.previewImage}/>)}
+          {films.map((item) => <FilmCard key={item.id} id={item.id} name={item.name} previewImage={item.previewImage} previewVideoLink={item.previewVideoLink} isHovered={false}/>)}
         </div>
       </section>
       <Footer />
