@@ -4,8 +4,8 @@ import { FilmCard as FilmCardProps } from '../../types/film';
 import Preview from '../preview/preview';
 
 type FilmCardAction = {
-  onPointerOver?: (id: number) => void;
-  onPointerOut?: () => void;
+  onPointerOver: (id: number) => void;
+  onPointerOut: () => void;
   isHovered: boolean;
 }
 
@@ -16,8 +16,8 @@ function FilmCard(props: ActiveFilmCard): JSX.Element {
   return (
     <article
       className="small-film-card catalog__films-card"
-      onPointerOver={(evt: PointerEvent<HTMLDivElement>) => props.onPointerOver?.(id)}
-      onPointerOut={() => props.onPointerOut?.()}
+      onPointerOver={(evt: PointerEvent<HTMLDivElement>) => props.onPointerOver(id)}
+      onPointerOut={() => props.onPointerOut()}
     >
       <div className="small-film-card__image">
         {isHovered ?
