@@ -7,7 +7,7 @@ type FilmListProp = {
 }
 
 function FilmsList({films}: FilmListProp): JSX.Element {
-  const [, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState(0);
   function handlePointerOver(id: number) {
     setActiveCard(id);
   }
@@ -22,7 +22,9 @@ function FilmsList({films}: FilmListProp): JSX.Element {
           key={item.id}
           id={item.id}
           name={item.name}
+          previewVideoLink={item.previewVideoLink}
           previewImage={item.previewImage}
+          isHovered={activeCard === item.id}
           onPointerOver={handlePointerOver}
           onPointerOut={handlePointerOut}
         />)

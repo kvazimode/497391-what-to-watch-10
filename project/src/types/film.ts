@@ -2,6 +2,7 @@ export type FilmCard = {
   id: number;
   name: string;
   previewImage: string;
+  previewVideoLink: string;
 }
 
 export type FilmExtra = {
@@ -9,7 +10,6 @@ export type FilmExtra = {
   backgroundImage: string;
   backgroundColor: string;
   videoLink: string;
-  previewVideoLink: string;
   description: string;
   rating: number;
   scoresCount: number;
