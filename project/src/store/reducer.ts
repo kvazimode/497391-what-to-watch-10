@@ -16,7 +16,8 @@ const reducer = createReducer(initState, (builder) => {
       state.films = filterFilms(genre, films);
     })
     .addCase(showAll, (state) => {
-      state = initState;
+      state.genre = initState.genre;
+      state.films = initState.films;
     });
 });
 
