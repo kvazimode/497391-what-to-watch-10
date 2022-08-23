@@ -1,4 +1,4 @@
-import films from './mocks/films'
+import films from './mocks/films';
 import { Film } from './types/film';
 
 
