@@ -13,7 +13,7 @@ const reducer = createReducer(initState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       const { genre } = action.payload;
       state.genre = genre;
-      state.films = filterFilms(genre);
+      state.films = filterFilms(genre, films);
     })
     .addCase(showAll, (state) => {
       state = initState;
