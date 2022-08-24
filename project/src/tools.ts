@@ -8,3 +8,4 @@ export const getGenres = (films: Film[]) => {
   });
   return Array.from(genres);
 };
+export const cropList = (list: Film[], amount: number) => list.slice(0, amount);
