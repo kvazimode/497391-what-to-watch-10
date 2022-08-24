@@ -1,11 +1,11 @@
 type ButtonMoreProps = {
-  clickHandler: () => void;
+  onClick: () => void;
 }
 
-function ButtonMore({clickHandler}: ButtonMoreProps): JSX.Element {
+function ButtonMore({onClick}: ButtonMoreProps): JSX.Element {
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={clickHandler}>Show more</button>
+      <button className="catalog__button" type="button" onClick={onClick}>Show more</button>
     </div>
   );
 }

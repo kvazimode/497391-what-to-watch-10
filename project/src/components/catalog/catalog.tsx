@@ -10,9 +10,9 @@ function Catalog(): JSX.Element {
   const {films, genre} = useAppSelector((state) => state);
   const [part, setPart] = useState(1);
   const [shownCards, setShownCards] = useState(cropList(films, PAGE_LIMIT));
-  const [isButtonVisible, setIsButtonVsible] = useState(true);
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
 
-  const buttonMoreClickHandler = () => setPart(1 + part);
+  const handleClick = () => setPart(1 + part);
 
   useEffect(() => {
     setPart(1);
@@ -21,7 +21,7 @@ function Catalog(): JSX.Element {
   useEffect(() => {
     const amount = part * PAGE_LIMIT;
     setShownCards(cropList(films, amount));
-    setIsButtonVsible(amount <= films.length);
+    setIsButtonVisible(amount <= films.length);
   }, [part, films]);
 
   return (
@@ -29,7 +29,7 @@ function Catalog(): JSX.Element {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <Genres active={genre} />
       <FilmsList films={shownCards}/>
-      {isButtonVisible ? <ButtonMore clickHandler={buttonMoreClickHandler}/> : ''}
+      {isButtonVisible ? <ButtonMore onClick={handleClick}/> : ''}
     </section>
   );
 }
