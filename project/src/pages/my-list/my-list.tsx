@@ -2,13 +2,10 @@ import { useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmCard from '../../components/film-card/film-card';
-import {Film} from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type MyListProps = {
-  films: Film[];
-}
-
-function MyList({films}: MyListProps): JSX.Element {
+function MyList(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const [activeCard, setActiveCard] = useState(0);
   function handlePointerOver(id: number) {
     setActiveCard(id);

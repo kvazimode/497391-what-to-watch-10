@@ -1,16 +1,14 @@
 import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks/index';
 
-type CatalogProps = {
-  films: Film[]
-}
+function Catalog(): JSX.Element {
+  const {films, genre} = useAppSelector((state) => state);
 
-function Catalog({films}: CatalogProps): JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <Genres />
+      <Genres active={genre} />
       <FilmsList films={films}/>
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>
