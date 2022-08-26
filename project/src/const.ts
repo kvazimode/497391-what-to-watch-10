@@ -14,3 +14,5 @@ export enum AuthStatus {
 }
 
 export const MAX_RATING = 10;
+
+export const PAGE_LIMIT = 8;
