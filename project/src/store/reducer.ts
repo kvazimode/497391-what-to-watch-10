@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, showAll, loadFilms } from './action';
+import { changeGenre, showAll, loadFilms, setIsDataLoaded } from './action';
 import { filterFilms } from '../tools';
 import { Films } from '../types/film';
 
@@ -7,12 +7,14 @@ let loadedFilms: Films = [];
 
 type InitState = {
   genre: string,
-  films: Films
+  films: Films,
+  isDataLoaded: boolean,
 }
 
 const initState: InitState = {
   genre: 'All genres',
-  films: []
+  films: [],
+  isDataLoaded: false,
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -29,6 +31,9 @@ const reducer = createReducer(initState, (builder) => {
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
       loadedFilms = action.payload;
+    })
+    .addCase(setIsDataLoaded, (state, action) => {
+      state.isDataLoaded = action.payload;
     });
 });
 

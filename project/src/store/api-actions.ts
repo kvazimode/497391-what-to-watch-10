@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { Route } from '../const';
-import { loadFilms } from './action';
+import { loadFilms, setIsDataLoaded } from './action';
 import { Films } from '../types/film';
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
@@ -14,5 +14,6 @@ export const fetchFilms = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Films>(Route.Films);
     dispatch(loadFilms(data));
+    dispatch(setIsDataLoaded(true));
   }
 );
