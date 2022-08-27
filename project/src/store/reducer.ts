@@ -1,13 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeGenre, showAll, loadFilms } from './action';
-import films from '../mocks/films';
 import { filterFilms } from '../tools';
 import { Films } from '../types/film';
+
+let loadedFilms: Films = [];
 
 type InitState = {
   genre: string,
   films: Films
-
 }
 
 const initState: InitState = {
@@ -20,14 +20,15 @@ const reducer = createReducer(initState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       const { genre } = action.payload;
       state.genre = genre;
-      state.films = filterFilms(genre, films);
+      state.films = filterFilms(genre, loadedFilms);
     })
     .addCase(showAll, (state) => {
       state.genre = initState.genre;
-      state.films = initState.films;
+      state.films = loadedFilms;
     })
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
+      loadedFilms = action.payload;
     });
 });
 
