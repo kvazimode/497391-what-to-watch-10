@@ -1,3 +1,4 @@
+import { AuthStatus } from './const';
 import { Film } from './types/film';
 
 export const filterFilms = (genre: string, films: Film[]): Film[] => films.filter((film) => film.genre === genre);
@@ -9,3 +10,5 @@ export const getGenres = (films: Film[]) => {
   return Array.from(genres);
 };
 export const cropList = (list: Film[], amount: number) => list.slice(0, amount);
+
+export const isAuthChecked = (authStatus: AuthStatus): boolean => authStatus === AuthStatus.Unknown;

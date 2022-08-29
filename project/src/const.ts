@@ -18,5 +18,7 @@ export const MAX_RATING = 10;
 export const PAGE_LIMIT = 8;
 
 export enum Route {
-  Films = '/films'
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout'
 }
