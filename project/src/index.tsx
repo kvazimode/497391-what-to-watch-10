@@ -5,6 +5,9 @@ import App from './components/app/app';
 import {playerMock} from './mocks/player';
 import {reviewMock} from './mocks/review';
 import {store} from './store';
+import { fetchFilms } from './store/api-actions';
+
+store.dispatch(fetchFilms());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

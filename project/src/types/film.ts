@@ -22,3 +22,4 @@ export type FilmExtra = {
 }
 
 export type Film = FilmCard & FilmExtra
+export type Films = Film[]
