@@ -7,7 +7,7 @@ import { User } from '../types/user';
 import { loadFilms, setIsDataLoaded, setGenres, setAuthStatus } from './action';
 import { Films } from '../types/film';
 import { getGenres } from '../tools';
-import { saveToken } from '../services/token';
+import { dropToken, saveToken } from '../services/token';
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -49,5 +49,18 @@ export const checkAuth = createAsyncThunk<void, undefined, {
     } catch {
       dispatch(setAuthStatus(AuthStatus.NoAuth));
     }
+  }
+);
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(Route.Logout);
+    dropToken();
+    dispatch(setAuthStatus(AuthStatus.NoAuth));
   }
 );

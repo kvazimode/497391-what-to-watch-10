@@ -19,5 +19,6 @@ export const PAGE_LIMIT = 8;
 
 export enum Route {
   Films = '/films',
-  Login = '/login'
+  Login = '/login',
+  Logout = '/logout'
 }

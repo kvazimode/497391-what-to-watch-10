@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logout } from '../../store/api-actions';
 
 function UserBlock(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {authStatus} = useAppSelector((state) => state);
 
   return (
@@ -15,7 +17,7 @@ function UserBlock(): JSX.Element {
         </li>}
       <li className="user-block__item">
         {authStatus === AuthStatus.Auth
-          ? <a className="user-block__link">Sign out</a>
+          ? <a className="user-block__link" onClick={() => dispatch(logout())}>Sign out</a>
           : <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>}
       </li>
     </ul>
