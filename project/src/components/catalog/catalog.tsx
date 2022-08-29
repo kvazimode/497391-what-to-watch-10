@@ -5,9 +5,10 @@ import ButtonMore from '../button-more/button-more';
 import { useEffect, useState } from 'react';
 import { PAGE_LIMIT } from '../../const';
 import { cropList } from '../../tools';
+import Loading from '../loading/loading';
 
 function Catalog(): JSX.Element {
-  const {films, genre} = useAppSelector((state) => state);
+  const {films, genre, isDataLoaded, genres} = useAppSelector((state) => state);
   const [part, setPart] = useState(1);
   const [shownCards, setShownCards] = useState(cropList(films, PAGE_LIMIT));
   const [isButtonVisible, setIsButtonVisible] = useState(true);
@@ -27,8 +28,8 @@ function Catalog(): JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <Genres active={genre} />
-      <FilmsList films={shownCards}/>
+      <Genres active={genre} genres={genres}/>
+      {isDataLoaded ? <FilmsList films={shownCards}/> : <Loading />}
       {isButtonVisible ? <ButtonMore onClick={handleClick}/> : ''}
     </section>
   );
