@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthStatus } from '../../const';
+import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main/main';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
@@ -10,6 +10,9 @@ import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {PlayerData} from '../../types/player';
 import {ReviewPage} from '../../types/review-page';
+import { useAppSelector } from '../../hooks';
+import { isAuthChecked } from '../../tools';
+import Loading from '../loading/loading';
 
 type AppScreenProps = {
   promoId: number;
@@ -20,6 +23,13 @@ type AppScreenProps = {
 function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
   const {source, film} = playerMock;
   const {id, filmName, poster, bg} = reviewMock;
+
+  const {authStatus, isDataLoaded} = useAppSelector((state) => state);
+
+  if (isAuthChecked(authStatus) || !isDataLoaded) {
+    return <Loading />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -29,14 +39,14 @@ function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
         />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authStatus={AuthStatus.Auth}>
+          <PrivateRoute authStatus={authStatus}>
             <MyList />
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Film} element={<Film />} />
         <Route path={AppRoute.AddReview} element={
-          <PrivateRoute authStatus={AuthStatus.Auth}>
+          <PrivateRoute authStatus={authStatus}>
             <AddReview id={id} filmName={filmName} poster={poster} bg={bg}/>
           </PrivateRoute>
         }
