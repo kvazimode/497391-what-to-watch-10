@@ -12,3 +12,11 @@ export const getGenres = (films: Film[]) => {
 export const cropList = (list: Film[], amount: number) => list.slice(0, amount);
 
 export const isAuthChecked = (authStatus: AuthStatus): boolean => authStatus === AuthStatus.Unknown;
+
+export const getRatingLevel = (score: number) => {
+  if (score === 10) {return 'Awesome';}
+  if (score < 10 && score >= 8) {return 'Very good';}
+  if (score < 8 && score >= 5) {return 'Good';}
+  if (score < 5 && score >= 3) {return 'Normal';}
+  if (score < 3 && score >= 0) {return 'Bad';}
+};

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, showAll, loadFilms, setIsDataLoaded, setGenres, setAuthStatus } from './action';
+import { changeGenre, showAll, loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, setIsFilmLoaded } from './action';
 import { filterFilms } from '../tools';
-import { Films } from '../types/film';
+import { Films, Film } from '../types/film';
 import { AuthStatus } from '../const';
 
 let loadedFilms: Films = [];
@@ -11,7 +11,10 @@ type InitState = {
   films: Films,
   isDataLoaded: boolean,
   genres: string[],
-  authStatus: AuthStatus
+  authStatus: AuthStatus,
+  film: Film | Record<string, never>,
+  similar: Films,
+  isFilmLoaded: boolean,
 }
 
 const initState: InitState = {
@@ -20,6 +23,9 @@ const initState: InitState = {
   isDataLoaded: false,
   genres: ['All genres'],
   authStatus: AuthStatus.Unknown,
+  film: {},
+  similar: [],
+  isFilmLoaded: false,
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -45,6 +51,15 @@ const reducer = createReducer(initState, (builder) => {
     })
     .addCase(setAuthStatus, (state, action) => {
       state.authStatus = action.payload;
+    })
+    .addCase(loadFilm, (state, action) => {
+      state.film = action.payload;
+    })
+    .addCase(loadSimilar, (state, action) => {
+      state.similar = action.payload;
+    })
+    .addCase(setIsFilmLoaded, (state, action) => {
+      state.isFilmLoaded = action.payload;
     });
 });
 

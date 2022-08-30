@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main/main';
 import SignIn from '../../pages/sign-in/sign-in';
@@ -13,6 +13,8 @@ import {ReviewPage} from '../../types/review-page';
 import { useAppSelector } from '../../hooks';
 import { isAuthChecked } from '../../tools';
 import Loading from '../loading/loading';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   promoId: number;
@@ -31,7 +33,7 @@ function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={
           <MainScreen promoId={promoId} />
@@ -54,7 +56,7 @@ function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
         <Route path={AppRoute.Player} element={<Player source={source} film={film}/>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

@@ -1,6 +1,8 @@
 import { PointerEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 import { FilmCard as FilmCardProps } from '../../types/film';
+import { setIsFilmLoaded } from '../../store/action';
 import Preview from '../preview/preview';
 
 type FilmCardAction = {
@@ -12,6 +14,7 @@ type FilmCardAction = {
 type ActiveFilmCard = FilmCardProps & FilmCardAction
 
 function FilmCard(props: ActiveFilmCard): JSX.Element {
+  const dispatch = useAppDispatch();
   const {id, name, previewImage, previewVideoLink, isHovered} = props;
   return (
     <article
@@ -25,7 +28,7 @@ function FilmCard(props: ActiveFilmCard): JSX.Element {
           <img src={previewImage} alt={name} width={280} height={175} />}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/:${id}`} className="small-film-card__link">{name}</Link>
+        <Link onClick={() => dispatch(setIsFilmLoaded(false))} to={`/films/${id}`} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

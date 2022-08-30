@@ -1,8 +1,6 @@
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
 
@@ -10,7 +8,6 @@ function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,7 +17,6 @@ function SignIn(): JSX.Element {
         password: passRef.current.value,
       }));
     }
-    navigate(AppRoute.Main);
   };
 
   return (
