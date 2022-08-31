@@ -1,36 +1,37 @@
-import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+import FilmOverview from '../../components/film-overview/film-overview';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Loading from '../../components/loading/loading';
 import Logo from '../../components/logo/logo';
+import Tab from '../../components/tab/tab';
 import UserBlock from '../../components/user-block/user-block';
-import { AppRoute } from '../../const';
+import { AppRoute, FilmTabs } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm, fetchSimilar } from '../../store/api-actions';
-import { getRatingLevel } from '../../tools';
+import { capitalize } from '../../tools';
 
 function Film(): JSX.Element {
   const {id: filmId} = useParams();
   const dispatch = useAppDispatch();
   const {film, similar, isFilmLoaded} = useAppSelector((state) => state);
+  const path = useLocation().pathname;
+  const filmTab = path.split(/\//)[3];
+  const [currentTab, setCurrentTab] = useState(filmTab ? capitalize(filmTab) : 'Overview');
+
+  const onTabClick = (tabName: string) => setCurrentTab(tabName);
 
   useEffect(() => {
     if (!isFilmLoaded) {
       dispatch(fetchFilm(Number(filmId)));
       dispatch(fetchSimilar(Number(filmId)));
+      setCurrentTab(FilmTabs[0]);
     }
   }, [filmId]);
 
-  const makeStarring = (actors: string[] | undefined) => {
-    if (!actors) {
-      return;
-    }
-    return actors.join(', ');
-  };
-
-  if (!isFilmLoaded) {
-    <Loading />;
+  if (!isFilmLoaded || !film) {
+    return <Loading />;
   }
 
   return (
@@ -80,28 +81,10 @@ function Film(): JSX.Element {
               <div className="film-card__desc">
                 <nav className="film-nav film-card__nav">
                   <ul className="film-nav__list">
-                    <li className="film-nav__item film-nav__item--active">
-                      <a href="#" className="film-nav__link">Overview</a>
-                    </li>
-                    <li className="film-nav__item">
-                      <a href="#" className="film-nav__link">Details</a>
-                    </li>
-                    <li className="film-nav__item">
-                      <a href="#" className="film-nav__link">Reviews</a>
-                    </li>
+                    {FilmTabs.map((tab) => <Tab key={`tab-${tab}`} name={tab} isActive={tab === currentTab} onTabClick={onTabClick}/>)}
                   </ul>
                 </nav>
-                <div className="film-rating">
-                  <div className="film-rating__score">{film?.rating}</div>
-                  <p className="film-rating__meta">
-                    <span className="film-rating__level">{getRatingLevel(film.rating)}</span>
-                    <span className="film-rating__count">{film?.scoresCount} ratings</span>
-                  </p>
-                </div>
-                <div className="film-card__text">{film?.description}
-                  <p className="film-card__director"><strong>Director: {film?.director}</strong></p>
-                  <p className="film-card__starring"><strong>Starring: {makeStarring(film.starring)} and other</strong></p>
-                </div>
+                {currentTab === 'Overview' ? <FilmOverview /> : <Outlet />}
               </div>
             </div>
           </div>

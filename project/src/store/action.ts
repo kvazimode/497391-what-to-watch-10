@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthStatus } from '../const';
 import { Films, Film } from '../types/film';
+import { Reviews } from '../types/review';
 
 export const changeGenre = createAction<{genre: string}>('list/changeGenre');
 export const showAll = createAction('list/showAll');
@@ -12,3 +13,4 @@ export const loadFilm = createAction<Film>('list/loadFilm');
 export const loadSimilar = createAction<Films>('list/loadSimilar');
 export const redirect = createAction<AppRoute>('redirect');
 export const setIsFilmLoaded = createAction<boolean>('list/setIsFilmLoaded');
+export const loadReviews = createAction<Reviews>('list/loadReviews');

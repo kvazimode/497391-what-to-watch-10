@@ -20,3 +20,12 @@ export const getRatingLevel = (score: number) => {
   if (score < 5 && score >= 3) {return 'Normal';}
   if (score < 3 && score >= 0) {return 'Bad';}
 };
+
+export const makeStarring = (actors: string[] | undefined, splitter: string) => {
+  if (!actors) {
+    return;
+  }
+  return actors.join(splitter);
+};
+
+export const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);

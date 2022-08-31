@@ -24,3 +24,5 @@ export enum ApiRoute {
   Login = '/login',
   Logout = '/logout'
 }
+
+export const FilmTabs = ['Overview', 'Details', 'Reviews'];

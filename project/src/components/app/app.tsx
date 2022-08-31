@@ -15,6 +15,9 @@ import { isAuthChecked } from '../../tools';
 import Loading from '../loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import FilmReviews from '../film-reviews/film-reviews';
+import FilmDetails from '../film-details/film-details';
+import FilmOverview from '../film-overview/film-overview';
 
 type AppScreenProps = {
   promoId: number;
@@ -46,7 +49,11 @@ function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Film} element={<Film />} />
+        <Route path={AppRoute.Film} element={<Film />}>
+          <Route path='overview' element={<FilmOverview />} />
+          <Route path='details' element={<FilmDetails />} />
+          <Route path='reviews' element={<FilmReviews />} />
+        </Route>
         <Route path={AppRoute.AddReview} element={
           <PrivateRoute authStatus={authStatus}>
             <AddReview id={id} filmName={filmName} poster={poster} bg={bg}/>

@@ -4,10 +4,11 @@ import { AxiosInstance } from 'axios';
 import { AuthStatus, ApiRoute, AppRoute } from '../const';
 import { Login } from '../types/login';
 import { User } from '../types/user';
-import { loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, redirect, setIsFilmLoaded } from './action';
+import { loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, redirect, setIsFilmLoaded, loadReviews } from './action';
 import { Films, Film } from '../types/film';
 import { getGenres } from '../tools';
 import { dropToken, saveToken } from '../services/token';
+import { Reviews } from '../types/review';
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -50,6 +51,18 @@ export const fetchSimilar = createAsyncThunk<void, number, {
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Films>(`${ApiRoute.Films}/${id}/similar`);
     dispatch(loadSimilar(data));
+  }
+);
+
+export const fetchReviews = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'list/fetchReviews',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Reviews>(`comments/${id}`);
+    dispatch(loadReviews(data));
   }
 );
 
