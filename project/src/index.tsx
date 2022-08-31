@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {playerMock} from './mocks/player';
-import {reviewMock} from './mocks/review';
 import {store} from './store';
 import { checkAuth, fetchFilms } from './store/api-actions';
 
@@ -24,7 +23,6 @@ root.render(
       <App
         promoId={Setting.promoId}
         playerMock={playerMock}
-        reviewMock={reviewMock}
       />
     </Provider>
   </React.StrictMode>,

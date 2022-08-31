@@ -4,7 +4,8 @@ export enum AppRoute {
   MyList = '/mylist',
   Film = '/films/:id',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  NotFound = '/not-found',
 }
 
 export enum AuthStatus {
@@ -13,12 +14,19 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export const MAX_RATING = 10;
-
 export const PAGE_LIMIT = 8;
 
-export enum Route {
+export enum ApiRoute {
   Films = '/films',
+  Film = '/films/:id',
   Login = '/login',
   Logout = '/logout'
 }
+
+export const FilmTabs = ['Overview', 'Details', 'Reviews'];
+
+export const FormLimits = {
+  MIN_TEXT_LENGTH: 50,
+  MAX_TEXT_LENGTH: 400,
+  MAX_RATING: 10,
+};
