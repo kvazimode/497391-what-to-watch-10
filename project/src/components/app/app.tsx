@@ -9,7 +9,6 @@ import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {PlayerData} from '../../types/player';
-import {ReviewPage} from '../../types/review-page';
 import { useAppSelector } from '../../hooks';
 import { isAuthChecked } from '../../tools';
 import Loading from '../loading/loading';
@@ -22,12 +21,10 @@ import FilmOverview from '../film-overview/film-overview';
 type AppScreenProps = {
   promoId: number;
   playerMock: PlayerData;
-  reviewMock: ReviewPage;
 }
 
-function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
+function App({promoId, playerMock }: AppScreenProps): JSX.Element {
   const {source, film} = playerMock;
-  const {id, filmName, poster, bg} = reviewMock;
 
   const {authStatus, isDataLoaded} = useAppSelector((state) => state);
 
@@ -56,7 +53,7 @@ function App({promoId, playerMock, reviewMock}: AppScreenProps): JSX.Element {
         </Route>
         <Route path={AppRoute.AddReview} element={
           <PrivateRoute authStatus={authStatus}>
-            <AddReview id={id} filmName={filmName} poster={poster} bg={bg}/>
+            <AddReview />
           </PrivateRoute>
         }
         />

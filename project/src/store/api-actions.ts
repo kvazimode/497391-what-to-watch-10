@@ -4,11 +4,12 @@ import { AxiosInstance } from 'axios';
 import { AuthStatus, ApiRoute, AppRoute } from '../const';
 import { Login } from '../types/login';
 import { User } from '../types/user';
-import { loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, redirect, setIsFilmLoaded, loadReviews } from './action';
+import { loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, redirect, setIsFilmLoaded, loadReviews, setIsReviewPosted } from './action';
 import { Films, Film } from '../types/film';
 import { getGenres } from '../tools';
 import { dropToken, saveToken } from '../services/token';
 import { Reviews } from '../types/review';
+import { ReviewPost } from '../types/review-post';
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -72,11 +73,16 @@ export const login = createAsyncThunk<void, Login, {
   extra: AxiosInstance
 }>(
   'login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<User>(ApiRoute.Login, {email, password});
-    saveToken(token);
-    dispatch(setAuthStatus(AuthStatus.Auth));
-    dispatch(redirect(AppRoute.Main));
+  async ({email, password}, {dispatch, extra: api}) => {
+    try {
+      const {data: {token}} = await api.post<User>(ApiRoute.Login, {email, password});
+      saveToken(token);
+      dispatch(setAuthStatus(AuthStatus.Auth));
+      dispatch(redirect(AppRoute.Main));
+    } catch {
+      dispatch(setAuthStatus(AuthStatus.NoAuth));
+      dispatch(redirect(AppRoute.SignIn));
+    }
   }
 );
 
@@ -107,5 +113,23 @@ export const logout = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(setAuthStatus(AuthStatus.NoAuth));
     dispatch(redirect(AppRoute.Main));
+  }
+);
+
+export const postReview = createAsyncThunk<void, ReviewPost, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'postReview',
+  async({filmId, comment, rating}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<Reviews>(`/comments/${filmId}`, {comment, rating});
+      dispatch(setIsReviewPosted(true));
+      dispatch(loadReviews(data));
+      dispatch(redirect(AppRoute.Film));
+    } catch {
+      dispatch(setIsReviewPosted(false));
+    }
   }
 );

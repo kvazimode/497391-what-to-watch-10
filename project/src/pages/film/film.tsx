@@ -7,7 +7,7 @@ import Loading from '../../components/loading/loading';
 import Logo from '../../components/logo/logo';
 import Tab from '../../components/tab/tab';
 import UserBlock from '../../components/user-block/user-block';
-import { AppRoute, FilmTabs } from '../../const';
+import { AuthStatus, FilmTabs } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm, fetchSimilar } from '../../store/api-actions';
 import { capitalize } from '../../tools';
@@ -15,7 +15,7 @@ import { capitalize } from '../../tools';
 function Film(): JSX.Element {
   const {id: filmId} = useParams();
   const dispatch = useAppDispatch();
-  const {film, similar, isFilmLoaded} = useAppSelector((state) => state);
+  const {film, similar, isFilmLoaded, authStatus} = useAppSelector((state) => state);
   const path = useLocation().pathname;
   const filmTab = path.split(/\//)[3];
   const [currentTab, setCurrentTab] = useState(filmTab ? capitalize(filmTab) : 'Overview');
@@ -26,7 +26,7 @@ function Film(): JSX.Element {
     if (!isFilmLoaded) {
       dispatch(fetchFilm(Number(filmId)));
       dispatch(fetchSimilar(Number(filmId)));
-      setCurrentTab(FilmTabs[0]);
+      setCurrentTab(filmTab ? capitalize(filmTab) : 'Overview');
     }
   }, [filmId]);
 
@@ -68,7 +68,7 @@ function Film(): JSX.Element {
                     <span>My list</span>
                     <span className="film-card__count">9</span>
                   </button>
-                  <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                  {authStatus === AuthStatus.Auth && <Link to='review' className="btn film-card__button">Add review</Link>}
                 </div>
               </div>
             </div>

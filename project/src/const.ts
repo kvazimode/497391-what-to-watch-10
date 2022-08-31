@@ -14,8 +14,6 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export const MAX_RATING = 10;
-
 export const PAGE_LIMIT = 8;
 
 export enum ApiRoute {
@@ -26,3 +24,9 @@ export enum ApiRoute {
 }
 
 export const FilmTabs = ['Overview', 'Details', 'Reviews'];
+
+export const FormLimits = {
+  MIN_TEXT_LENGTH: 50,
+  MAX_TEXT_LENGTH: 400,
+  MAX_RATING: 10,
+};

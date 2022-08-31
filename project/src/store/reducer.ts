@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, showAll, loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, setIsFilmLoaded, loadReviews } from './action';
+import { changeGenre, showAll, loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, setIsFilmLoaded, loadReviews, setIsReviewPosted } from './action';
 import { filterFilms } from '../tools';
 import { Films, Film } from '../types/film';
 import { AuthStatus } from '../const';
@@ -16,7 +16,8 @@ type InitState = {
   film: Film | Record<string, never>,
   similar: Films,
   isFilmLoaded: boolean,
-  reviews: Reviews
+  reviews: Reviews,
+  isReviewPosted: boolean,
 }
 
 const initState: InitState = {
@@ -28,7 +29,8 @@ const initState: InitState = {
   film: {},
   similar: [],
   isFilmLoaded: false,
-  reviews: []
+  reviews: [],
+  isReviewPosted: false,
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -66,6 +68,9 @@ const reducer = createReducer(initState, (builder) => {
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(setIsReviewPosted, (state, action) => {
+      state.isReviewPosted = action.payload;
     });
 });
 

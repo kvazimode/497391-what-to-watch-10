@@ -12,8 +12,9 @@ function SignIn(): JSX.Element {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loginRef.current && passRef.current) {
+      // console.log(loginRef.current.value, passRef.current.value)
       dispatch(login({
-        login: loginRef.current.value,
+        email: loginRef.current.value,
         password: passRef.current.value,
       }));
     }
