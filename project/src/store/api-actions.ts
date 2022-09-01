@@ -10,6 +10,7 @@ import { dropToken, saveToken } from '../services/token';
 import { Reviews } from '../types/review';
 import { ReviewPost } from '../types/review-post';
 import * as action from './action';
+import { FavPost } from '../types/fav-post';
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -144,5 +145,21 @@ export const postReview = createAsyncThunk<void, ReviewPost, {
     } catch {
       dispatch(action.setIsReviewPosted(false));
     }
+  }
+);
+
+export const addToFav = createAsyncThunk<void, FavPost, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'addToFavorite',
+  async({filmId, isFav, type}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Film>(`/favorite/${filmId}/${isFav}`, {filmId, isFav});
+    if (type === 'promo') {
+      dispatch(action.loadPromo(data));
+      return;
+    }
+    dispatch(action.loadFilm(data));
   }
 );

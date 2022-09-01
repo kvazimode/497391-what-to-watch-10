@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchPromo } from '../../store/api-actions';
+import ButtonFav from '../button-fav/button-fav';
 import UserBlock from '../user-block/user-block';
 
 function Promo(): JSX.Element {
@@ -32,19 +34,13 @@ function Promo(): JSX.Element {
               <span className="film-card__year">{promoFilm.released}</span>
             </p>
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <Link to={`/player/${promoFilm.id}`} className="btn btn--play film-card__button">
                 <svg viewBox="0 0 19 19" width={19} height={19}>
                   <use xlinkHref="#play-s" />
                 </svg>
                 <span>Play</span>
-              </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">9</span>
-              </button>
+              </Link>
+              <ButtonFav isFav={promoFilm.isFavorite} filmId={promoFilm.id} type={'promo'}/>
             </div>
           </div>
         </div>
