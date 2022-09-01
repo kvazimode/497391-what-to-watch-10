@@ -15,3 +15,5 @@ export const redirect = createAction<AppRoute>('redirect');
 export const setIsFilmLoaded = createAction<boolean>('list/setIsFilmLoaded');
 export const loadReviews = createAction<Reviews>('list/loadReviews');
 export const setIsReviewPosted = createAction<boolean>('setIsReviewPosted');
+export const loadPromo = createAction<Film>('list/getPromo');
+export const setIsPromoLoaded = createAction<boolean>('list/setIsPromoLoaded');

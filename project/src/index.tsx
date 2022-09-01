@@ -13,15 +13,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const Setting = {
-  promoId: 1
-};
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        promoId={Setting.promoId}
         playerMock={playerMock}
       />
     </Provider>

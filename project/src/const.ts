@@ -20,7 +20,8 @@ export enum ApiRoute {
   Films = '/films',
   Film = '/films/:id',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Promo = '/promo'
 }
 
 export const FilmTabs = ['Overview', 'Details', 'Reviews'];

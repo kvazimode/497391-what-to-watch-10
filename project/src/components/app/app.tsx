@@ -19,11 +19,10 @@ import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 
 type AppScreenProps = {
-  promoId: number;
   playerMock: PlayerData;
 }
 
-function App({promoId, playerMock }: AppScreenProps): JSX.Element {
+function App({ playerMock }: AppScreenProps): JSX.Element {
   const {source, film} = playerMock;
 
   const {authStatus, isDataLoaded} = useAppSelector((state) => state);
@@ -36,7 +35,7 @@ function App({promoId, playerMock }: AppScreenProps): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={
-          <MainScreen promoId={promoId} />
+          <MainScreen />
         }
         />
         <Route path={AppRoute.SignIn} element={<SignIn />} />

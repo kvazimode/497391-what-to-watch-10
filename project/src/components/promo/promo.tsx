@@ -1,17 +1,19 @@
 import Logo from '../../components/logo/logo';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchPromo } from '../../store/api-actions';
 import UserBlock from '../user-block/user-block';
 
-type PromoProps = {
-  promoTitle: string;
-  promoGenre: string;
-  promoRelease: number;
-};
+function Promo(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {isPromoLoaded, promoFilm} = useAppSelector((state) => state);
+  if (!isPromoLoaded) {
+    dispatch(fetchPromo());
+  }
 
-function Promo({promoTitle, promoGenre, promoRelease}: PromoProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
@@ -21,13 +23,13 @@ function Promo({promoTitle, promoGenre, promoRelease}: PromoProps): JSX.Element 
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
+            <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width={218} height={327} />
           </div>
           <div className="film-card__desc">
-            <h2 className="film-card__title">{promoTitle}</h2>
+            <h2 className="film-card__title">{promoFilm.name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{promoGenre}</span>
-              <span className="film-card__year">{promoRelease}</span>
+              <span className="film-card__genre">{promoFilm.genre}</span>
+              <span className="film-card__year">{promoFilm.released}</span>
             </p>
             <div className="film-card__buttons">
               <button className="btn btn--play film-card__button" type="button">

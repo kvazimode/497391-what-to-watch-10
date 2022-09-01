@@ -11,9 +11,11 @@ function UserBlock(): JSX.Element {
     <ul className="user-block">
       {authStatus === AuthStatus.Auth &&
         <li className="user-block__item">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
+          <Link to={AppRoute.MyList}>
+            <div className="user-block__avatar">
+              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+            </div>
+          </Link>
         </li>}
       <li className="user-block__item">
         {authStatus === AuthStatus.Auth
