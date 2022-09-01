@@ -1,4 +1,4 @@
-import { AuthStatus } from './const';
+import { AuthStatus, MAX_GENRES } from './const';
 import { Film } from './types/film';
 
 export const filterFilms = (genre: string, films: Film[]): Film[] => films.filter((film) => film.genre === genre);
@@ -7,7 +7,8 @@ export const getGenres = (films: Film[]) => {
   films.forEach((film) => {
     genres.add(film.genre);
   });
-  return Array.from(genres);
+  const croppedGenres = Array.from(genres);
+  return croppedGenres.slice(0, MAX_GENRES);
 };
 export const cropList = (list: Film[], amount: number) => list.slice(0, amount);
 
@@ -29,3 +30,12 @@ export const makeStarring = (actors: string[] | undefined, splitter: string) => 
 };
 
 export const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const parseDate = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  return date.toLocaleDateString('en-US', options);
+};

@@ -15,6 +15,7 @@ export enum AuthStatus {
 }
 
 export const PAGE_LIMIT = 8;
+export const MAX_GENRES = 10;
 
 export enum ApiRoute {
   Films = '/films',

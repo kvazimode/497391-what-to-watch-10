@@ -5,7 +5,7 @@ import { AuthStatus, ApiRoute, AppRoute } from '../const';
 import { Login } from '../types/login';
 import { User } from '../types/user';
 import { Films, Film } from '../types/film';
-import { getGenres } from '../tools';
+import { cropList, getGenres } from '../tools';
 import { dropToken, saveToken } from '../services/token';
 import { Reviews } from '../types/review';
 import { ReviewPost } from '../types/review-post';
@@ -51,7 +51,7 @@ export const fetchSimilar = createAsyncThunk<void, number, {
   'list/fetchSimilar',
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Films>(`${ApiRoute.Films}/${id}/similar`);
-    dispatch(action.loadSimilar(data));
+    dispatch(action.loadSimilar(cropList(data, 4)));
   }
 );
 
