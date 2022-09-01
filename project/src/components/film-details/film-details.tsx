@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { makeStarring } from '../../tools';
+import { makeStarring, parseRunTime } from '../../tools';
 
 function FilmDetails(): JSX.Element {
   const {director, starring, runTime, genre, released} = useAppSelector((state) => state.film);
@@ -19,7 +19,7 @@ function FilmDetails(): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">{parseRunTime(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

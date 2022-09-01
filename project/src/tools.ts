@@ -29,6 +29,12 @@ export const makeStarring = (actors: string[] | undefined, splitter: string) => 
   return actors.join(splitter);
 };
 
+export const parseRunTime = (time: number): string => {
+  const hours = Math.floor(time / 60);
+  const minutes = time % 60;
+  return `${hours}h ${minutes}m`;
+};
+
 export const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const getLongDate = (date: Date): string => {
