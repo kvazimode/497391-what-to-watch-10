@@ -31,7 +31,7 @@ export const makeStarring = (actors: string[] | undefined, splitter: string) => 
 
 export const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const parseDate = (date: Date) => {
+export const getLongDate = (date: Date): string => {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
@@ -39,3 +39,5 @@ export const parseDate = (date: Date) => {
   };
   return date.toLocaleDateString('en-US', options);
 };
+
+export const getShortDate = (date: Date): string => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
