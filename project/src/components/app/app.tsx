@@ -8,7 +8,6 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {PlayerData} from '../../types/player';
 import { useAppSelector } from '../../hooks';
 import { isAuthChecked } from '../../tools';
 import Loading from '../loading/loading';
@@ -18,13 +17,7 @@ import FilmReviews from '../film-reviews/film-reviews';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 
-type AppScreenProps = {
-  playerMock: PlayerData;
-}
-
-function App({ playerMock }: AppScreenProps): JSX.Element {
-  const {source, film} = playerMock;
-
+function App(): JSX.Element {
   const {authStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (isAuthChecked(authStatus) || !isDataLoaded) {
@@ -56,7 +49,7 @@ function App({ playerMock }: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<Player source={source} film={film}/>} />
+        <Route path={AppRoute.Player} element={<Player />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </HistoryRouter>

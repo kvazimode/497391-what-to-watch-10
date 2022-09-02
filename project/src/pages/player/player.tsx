@@ -1,10 +1,24 @@
-import {PlayerData} from '../../types/player';
+import { useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFilm } from '../../store/api-actions';
 
-function Player({source, film}: PlayerData): JSX.Element {
+function Player(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const {id: filmId} = useParams();
+  const film = useAppSelector((state) => state.film);
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    dispatch(fetchFilm(Number(filmId)));
+  }, [filmId]);
+
   return (
     <div className="player">
-      <video src={source} className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">Exit</button>
+      <video ref={videoRef} src={film.videoLink} className="player__video" poster="img/player-poster.jpg" />
+      <button type="button" className="player__exit" onClick={() => navigate(-1)}>Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
@@ -20,7 +34,7 @@ function Player({source, film}: PlayerData): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{film}</div>
+          <div className="player__name">{film.name}</div>
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width={27} height={27}>
               <use xlinkHref="#full-screen" />
