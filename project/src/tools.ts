@@ -47,3 +47,11 @@ export const getLongDate = (date: Date): string => {
 };
 
 export const getShortDate = (date: Date): string => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+
+export const parsePlayerRunTime = (time: number) => {
+  const twoDigitTime = (number: number) => number < 10 ? `0${number}` : number;
+  const minutes = Math.floor(time / 60);
+  const hours = Math.floor(minutes / 60);
+  const seconds = time % 60;
+  return `-${hours ? twoDigitTime(hours) : ''}${minutes ? twoDigitTime(minutes) : '00:'}${twoDigitTime(seconds)}`;
+};
