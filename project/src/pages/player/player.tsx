@@ -16,7 +16,7 @@ function Player(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchFilm(Number(filmId)));
-  }, [filmId]);
+  }, [filmId, dispatch]);
 
   const {
     isPlaying,

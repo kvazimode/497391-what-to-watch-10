@@ -19,7 +19,7 @@ function UserBlock(): JSX.Element {
         </li>}
       <li className="user-block__item">
         {authStatus === AuthStatus.Auth
-          ? <a className="user-block__link" onClick={() => dispatch(logout())}>Sign out</a>
+          ? <p className="user-block__link" onClick={() => dispatch(logout())}>Sign out</p>
           : <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>}
       </li>
     </ul>

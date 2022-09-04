@@ -29,7 +29,7 @@ function Film(): JSX.Element {
       dispatch(fetchSimilar(Number(filmId)));
       setCurrentTab(filmTab ? capitalize(filmTab) : 'Overview');
     }
-  }, [filmId]);
+  }, [filmId, dispatch, filmTab, isFilmLoaded]);
 
   if (!isFilmLoaded || !film) {
     return <Loading />;

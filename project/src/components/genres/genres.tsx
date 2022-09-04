@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { MouseEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { changeGenre, showAll } from '../../store/action';
@@ -24,7 +25,7 @@ function Genres({active, genres}: GenresProps): JSX.Element {
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
         <li key={genre} className={`catalog__genres-item catalog__genres-item${active === genre ? '--active' : '' }`} onClick={genreClickHandler}>
-          <a href="#" className="catalog__genres-link">{genre}</a>
+          <Link to={`?genre=${genre}`} className="catalog__genres-link">{genre}</Link>
         </li>
       ))}
     </ul>

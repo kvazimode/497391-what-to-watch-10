@@ -11,7 +11,7 @@ function FilmReviews(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchReviews(filmId));
-  }, [filmId]);
+  }, [filmId, dispatch]);
 
   return (
     <div className="film-card__reviews film-card__row">
