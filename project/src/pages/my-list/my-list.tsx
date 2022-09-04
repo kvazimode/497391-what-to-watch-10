@@ -2,12 +2,10 @@ import { useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmCard from '../../components/film-card/film-card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import UserBlock from '../../components/user-block/user-block';
-import { fetchFavList } from '../../store/api-actions';
 
 function MyList(): JSX.Element {
-  const dispatch = useAppDispatch();
   const films = useAppSelector((state) => state.favList);
   const [activeCard, setActiveCard] = useState(0);
   function handlePointerOver(id: number) {
@@ -16,8 +14,6 @@ function MyList(): JSX.Element {
   function handlePointerOut() {
     setActiveCard(0);
   }
-
-  dispatch(fetchFavList());
 
   return (
     <div className="user-page">

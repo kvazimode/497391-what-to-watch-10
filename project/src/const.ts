@@ -34,4 +34,4 @@ export const FormLimits = {
   MAX_RATING: 10,
 };
 
-export const errorsToShow = [400, 401, 403, 504];
+export const errorsToShow = [400, 403, 504];

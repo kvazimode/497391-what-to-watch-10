@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchPromo } from '../../store/api-actions';
+import { useAppSelector } from '../../hooks';
 import ButtonFav from '../button-fav/button-fav';
 import UserBlock from '../user-block/user-block';
 
 function Promo(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const {isPromoLoaded, promoFilm} = useAppSelector((state) => state);
-  if (!isPromoLoaded) {
-    dispatch(fetchPromo());
-  }
-
+  const {promoFilm} = useAppSelector((state) => state);
   return (
     <section className="film-card">
       <div className="film-card__bg">
