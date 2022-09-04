@@ -20,6 +20,7 @@ type InitState = {
   isReviewPosted: boolean,
   promoFilm: Film | Record<string, never>,
   isPromoLoaded: boolean,
+  favList: Films;
 }
 
 const initState: InitState = {
@@ -35,6 +36,7 @@ const initState: InitState = {
   isReviewPosted: false,
   promoFilm: {},
   isPromoLoaded: false,
+  favList: [],
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -81,6 +83,9 @@ const reducer = createReducer(initState, (builder) => {
     })
     .addCase(actions.setIsPromoLoaded, (state, action) => {
       state.isPromoLoaded = action.payload;
+    })
+    .addCase(actions.loadFavList, (state, action) => {
+      state.favList = action.payload;
     });
 });
 

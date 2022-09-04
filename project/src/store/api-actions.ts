@@ -81,6 +81,19 @@ export const fetchPromo = createAsyncThunk<void, undefined, {
   }
 );
 
+export const fetchFavList = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'list/fetchFavList',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Films>(ApiRoute.Favorite);
+    dispatch(action.loadFavList(data));
+    dispatch(action.setIsDataLoaded(true));
+  }
+);
+
 export const login = createAsyncThunk<void, Login, {
   dispatch: AppDispatch,
   state: State,
