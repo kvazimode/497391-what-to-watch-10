@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addToFav } from '../../store/api-actions';
+import { addToFav, fetchFavList } from '../../store/api-actions';
 
 type ButtonFavProps = {
   isFav: boolean;
@@ -13,6 +13,7 @@ function ButtonFav({isFav, filmId, type}: ButtonFavProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector((state) => state.authStatus);
+  const favFilms = useAppSelector((state) => state.favList);
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   const handleClick = () => {
@@ -21,6 +22,7 @@ function ButtonFav({isFav, filmId, type}: ButtonFavProps): JSX.Element {
     }
 
     dispatch(addToFav({filmId, isFav: Number(!isFav), type}));
+    dispatch(fetchFavList());
   };
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={handleClick}>
@@ -36,7 +38,7 @@ function ButtonFav({isFav, filmId, type}: ButtonFavProps): JSX.Element {
           </svg>
         )}
       <span>My list</span>
-      <span className="film-card__count">9</span>
+      <span className="film-card__count">{favFilms.length}</span>
     </button>
   );
 }
