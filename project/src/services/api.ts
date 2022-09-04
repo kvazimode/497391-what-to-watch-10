@@ -25,8 +25,9 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response && errorsToShow.includes(Number(error.response))) {
+      if (error.response && errorsToShow.includes(error.response.status)) {
         store.dispatch(setError({text: error.response.data.error, code: error.response.status}));
+        setTimeout(() => store.dispatch(setError(null)), 5000);
       }
     }
   );
