@@ -2,28 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
-import {playerMock} from './mocks/player';
+import ErrorMessage from './components/error-message/error-message';
 import {store} from './store';
-import { checkAuth, fetchFilms } from './store/api-actions';
+import { checkAuth, fetchFilms, fetchPromo, fetchFavList } from './store/api-actions';
 
 store.dispatch(checkAuth());
 store.dispatch(fetchFilms());
+store.dispatch(fetchPromo());
+store.dispatch(fetchFavList());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const Setting = {
-  promoId: 1
-};
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        promoId={Setting.promoId}
-        playerMock={playerMock}
-      />
+      <ErrorMessage />
+      <App />
     </Provider>
   </React.StrictMode>,
 );

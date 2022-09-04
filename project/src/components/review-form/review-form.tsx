@@ -1,9 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import ReviewStar from '../review-star/review-star';
 import { FormLimits } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReview } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
+import { setIsReviewPosting } from '../../store/action';
 
 const stars: number[] = [];
 for (let i = FormLimits.MAX_RATING; i > 0; i--) {
@@ -17,6 +18,7 @@ function ReviewForm(): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
+  const {isReviewPosting, isReviewPostError} = useAppSelector((state) => state);
 
   const checkForm = () => {
     const isLengthCorrect = comment.length >= FormLimits.MIN_TEXT_LENGTH && comment.length <= FormLimits.MAX_TEXT_LENGTH;
@@ -38,7 +40,7 @@ function ReviewForm(): JSX.Element {
     if (!isSubmitAvailable) {
       return;
     }
-
+    dispatch(setIsReviewPosting(true));
     dispatch(postReview({filmId, comment, rating}));
     setComment('');
     setRating(0);
@@ -52,6 +54,7 @@ function ReviewForm(): JSX.Element {
           <div className="rating__stars">
             {stars.map((starNumber) => (
               <ReviewStar
+                isDisabled={isReviewPosting}
                 key={starNumber}
                 starNumber={starNumber}
                 rating={rating}
@@ -62,6 +65,7 @@ function ReviewForm(): JSX.Element {
         </div>
         <div className="add-review__text">
           <textarea
+            disabled={isReviewPosting}
             className="add-review__textarea"
             name="review-text"
             id="review-text"
@@ -79,6 +83,7 @@ function ReviewForm(): JSX.Element {
             </button>
           </div>
         </div>
+        {isReviewPostError && <div className='sign-in__field--error'>Send error. Try again or ask support.</div>}
       </form>
     </div>
   );

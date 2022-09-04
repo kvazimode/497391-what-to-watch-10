@@ -8,7 +8,6 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {PlayerData} from '../../types/player';
 import { useAppSelector } from '../../hooks';
 import { isAuthChecked } from '../../tools';
 import Loading from '../loading/loading';
@@ -18,14 +17,7 @@ import FilmReviews from '../film-reviews/film-reviews';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 
-type AppScreenProps = {
-  promoId: number;
-  playerMock: PlayerData;
-}
-
-function App({promoId, playerMock }: AppScreenProps): JSX.Element {
-  const {source, film} = playerMock;
-
+function App(): JSX.Element {
   const {authStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (isAuthChecked(authStatus) || !isDataLoaded) {
@@ -36,7 +28,7 @@ function App({promoId, playerMock }: AppScreenProps): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={
-          <MainScreen promoId={promoId} />
+          <MainScreen />
         }
         />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
@@ -57,7 +49,7 @@ function App({promoId, playerMock }: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<Player source={source} film={film}/>} />
+        <Route path={AppRoute.Player} element={<Player />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </HistoryRouter>

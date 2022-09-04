@@ -15,12 +15,15 @@ export enum AuthStatus {
 }
 
 export const PAGE_LIMIT = 8;
+export const MAX_GENRES = 10;
 
 export enum ApiRoute {
   Films = '/films',
   Film = '/films/:id',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 export const FilmTabs = ['Overview', 'Details', 'Reviews'];
@@ -30,3 +33,5 @@ export const FormLimits = {
   MAX_TEXT_LENGTH: 400,
   MAX_RATING: 10,
 };
+
+export const errorsToShow = [400, 403, 504];

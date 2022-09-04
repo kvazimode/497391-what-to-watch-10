@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, showAll, loadFilms, setIsDataLoaded, setGenres, setAuthStatus, loadFilm, loadSimilar, setIsFilmLoaded, loadReviews, setIsReviewPosted } from './action';
+import * as actions from './action';
 import { filterFilms } from '../tools';
 import { Films, Film } from '../types/film';
 import { AuthStatus } from '../const';
 import { Reviews } from '../types/review';
+import { Error } from '../types/error';
 
 let loadedFilms: Films = [];
 
@@ -17,7 +18,12 @@ type InitState = {
   similar: Films,
   isFilmLoaded: boolean,
   reviews: Reviews,
-  isReviewPosted: boolean,
+  isReviewPosting: boolean,
+  isReviewPostError: boolean,
+  promoFilm: Film | Record<string, never>,
+  isPromoLoaded: boolean,
+  favList: Films;
+  error: Error;
 }
 
 const initState: InitState = {
@@ -30,47 +36,72 @@ const initState: InitState = {
   similar: [],
   isFilmLoaded: false,
   reviews: [],
-  isReviewPosted: false,
+  isReviewPosting: false,
+  isReviewPostError: false,
+  promoFilm: {},
+  isPromoLoaded: false,
+  favList: [],
+  error: null,
 };
 
 const reducer = createReducer(initState, (builder) => {
   builder
-    .addCase(changeGenre, (state, action) => {
+    .addCase(actions.changeGenre, (state, action) => {
       const { genre } = action.payload;
       state.genre = genre;
       state.films = filterFilms(genre, loadedFilms);
     })
-    .addCase(showAll, (state) => {
+    .addCase(actions.showAll, (state) => {
       state.genre = initState.genre;
       state.films = loadedFilms;
     })
-    .addCase(loadFilms, (state, action) => {
+    .addCase(actions.loadFilms, (state, action) => {
       state.films = action.payload;
       loadedFilms = action.payload;
     })
-    .addCase(setIsDataLoaded, (state, action) => {
+    .addCase(actions.setIsDataLoaded, (state, action) => {
       state.isDataLoaded = action.payload;
     })
-    .addCase(setGenres, (state, action) => {
+    .addCase(actions.setGenres, (state, action) => {
       state.genres = action.payload;
     })
-    .addCase(setAuthStatus, (state, action) => {
+    .addCase(actions.setAuthStatus, (state, action) => {
       state.authStatus = action.payload;
     })
-    .addCase(loadFilm, (state, action) => {
+    .addCase(actions.loadFilm, (state, action) => {
       state.film = action.payload;
     })
-    .addCase(loadSimilar, (state, action) => {
+    .addCase(actions.loadSimilar, (state, action) => {
       state.similar = action.payload;
     })
-    .addCase(setIsFilmLoaded, (state, action) => {
+    .addCase(actions.setIsFilmLoaded, (state, action) => {
       state.isFilmLoaded = action.payload;
     })
-    .addCase(loadReviews, (state, action) => {
+    .addCase(actions.loadReviews, (state, action) => {
       state.reviews = action.payload;
     })
-    .addCase(setIsReviewPosted, (state, action) => {
-      state.isReviewPosted = action.payload;
+    .addCase(actions.setIsReviewPosting, (state, action) => {
+      state.isReviewPosting = action.payload;
+    })
+    .addCase(actions.setIsReviewPostError, (state, action) => {
+      state.isReviewPostError = action.payload;
+    })
+    .addCase(actions.loadPromo, (state, action) => {
+      state.promoFilm = action.payload;
+    })
+    .addCase(actions.setIsPromoLoaded, (state, action) => {
+      state.isPromoLoaded = action.payload;
+    })
+    .addCase(actions.loadFavList, (state, action) => {
+      state.favList = action.payload;
+    })
+    .addCase(actions.setError, (state, action) => {
+      action.payload === null
+        ? state.error = action.payload
+        : state.error = {
+          code: action.payload?.code,
+          text: action.payload?.text,
+        };
     });
 });
 

@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks';
 import UserBlock from '../../components/user-block/user-block';
 
 function MyList(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector((state) => state.favList);
   const [activeCard, setActiveCard] = useState(0);
   function handlePointerOver(id: number) {
     setActiveCard(id);
@@ -24,20 +24,24 @@ function MyList(): JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <div className="catalog__films-list">
-          {films.map((item) => (
-            <FilmCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              previewImage={item.previewImage}
-              previewVideoLink={item.previewVideoLink}
-              isHovered={activeCard === item.id}
-              onPointerOver={handlePointerOver}
-              onPointerOut={handlePointerOut}
-            />)
+        {films.length === 0
+          ? <p>You have not added any film to favorite. Add some by pressing &apos;My list&apos; button on film page.</p>
+          : (
+            <div className="catalog__films-list">
+              {films.map((item) => (
+                <FilmCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  previewImage={item.previewImage}
+                  previewVideoLink={item.previewVideoLink}
+                  isHovered={activeCard === item.id}
+                  onPointerOver={handlePointerOver}
+                  onPointerOut={handlePointerOut}
+                />)
+              )}
+            </div>
           )}
-        </div>
       </section>
       <Footer />
     </div>

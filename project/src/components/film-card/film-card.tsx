@@ -24,14 +24,16 @@ function FilmCard(props: ActiveFilmCard): JSX.Element {
       onPointerOver={(evt: PointerEvent<HTMLDivElement>) => props.onPointerOver(id)}
       onPointerOut={() => props.onPointerOut()}
     >
-      <div className="small-film-card__image">
-        {isHovered ?
-          <Preview src={previewVideoLink} previewImage={previewImage} isHovered={isHovered}/> :
-          <img src={previewImage} alt={name} width={280} height={175} />}
-      </div>
-      <h3 className="small-film-card__title">
-        <Link onClick={() => dispatch(setIsFilmLoaded(isFilmSame()))} to={`/films/${id}`} className="small-film-card__link">{name}</Link>
-      </h3>
+      <Link onClick={() => dispatch(setIsFilmLoaded(isFilmSame()))} to={`/films/${id}`} className="small-film-card__link">
+        <div className="small-film-card__image">
+          {isHovered ?
+            <Preview src={previewVideoLink} previewImage={previewImage} isHovered={isHovered}/> :
+            <img src={previewImage} alt={name} width={280} height={175} />}
+        </div>
+        <h3 className="small-film-card__title">
+          {name}
+        </h3>
+      </Link>
     </article>
   );
 }
