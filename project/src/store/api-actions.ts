@@ -152,11 +152,12 @@ export const postReview = createAsyncThunk<void, ReviewPost, {
   async({filmId, comment, rating}, {dispatch, extra: api}) => {
     try {
       const {data} = await api.post<Reviews>(`/comments/${filmId}`, {comment, rating});
-      dispatch(action.setIsReviewPosted(true));
       dispatch(action.loadReviews(data));
-      dispatch(action.redirect(AppRoute.Film));
+      dispatch(action.redirect(`/films/${filmId}`));
+      dispatch(action.setIsReviewPosting(false));
     } catch {
-      dispatch(action.setIsReviewPosted(false));
+      dispatch(action.setIsReviewPostError(true));
+      dispatch(action.setIsReviewPosting(false));
     }
   }
 );

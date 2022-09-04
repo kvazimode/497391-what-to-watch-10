@@ -18,7 +18,8 @@ type InitState = {
   similar: Films,
   isFilmLoaded: boolean,
   reviews: Reviews,
-  isReviewPosted: boolean,
+  isReviewPosting: boolean,
+  isReviewPostError: boolean,
   promoFilm: Film | Record<string, never>,
   isPromoLoaded: boolean,
   favList: Films;
@@ -35,7 +36,8 @@ const initState: InitState = {
   similar: [],
   isFilmLoaded: false,
   reviews: [],
-  isReviewPosted: false,
+  isReviewPosting: false,
+  isReviewPostError: false,
   promoFilm: {},
   isPromoLoaded: false,
   favList: [],
@@ -78,8 +80,11 @@ const reducer = createReducer(initState, (builder) => {
     .addCase(actions.loadReviews, (state, action) => {
       state.reviews = action.payload;
     })
-    .addCase(actions.setIsReviewPosted, (state, action) => {
-      state.isReviewPosted = action.payload;
+    .addCase(actions.setIsReviewPosting, (state, action) => {
+      state.isReviewPosting = action.payload;
+    })
+    .addCase(actions.setIsReviewPostError, (state, action) => {
+      state.isReviewPostError = action.payload;
     })
     .addCase(actions.loadPromo, (state, action) => {
       state.promoFilm = action.payload;
