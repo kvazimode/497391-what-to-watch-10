@@ -4,6 +4,7 @@ import { filterFilms } from '../tools';
 import { Films, Film } from '../types/film';
 import { AuthStatus } from '../const';
 import { Reviews } from '../types/review';
+import { Error } from '../types/error';
 
 let loadedFilms: Films = [];
 
@@ -21,6 +22,7 @@ type InitState = {
   promoFilm: Film | Record<string, never>,
   isPromoLoaded: boolean,
   favList: Films;
+  error: Error;
 }
 
 const initState: InitState = {
@@ -37,6 +39,7 @@ const initState: InitState = {
   promoFilm: {},
   isPromoLoaded: false,
   favList: [],
+  error: null,
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -86,6 +89,14 @@ const reducer = createReducer(initState, (builder) => {
     })
     .addCase(actions.loadFavList, (state, action) => {
       state.favList = action.payload;
+    })
+    .addCase(actions.setError, (state, action) => {
+      action.payload === null
+        ? state.error = action.payload
+        : state.error = {
+          code: action.payload?.code,
+          text: action.payload?.text,
+        };
     });
 });
 

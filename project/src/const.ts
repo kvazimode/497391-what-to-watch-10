@@ -33,3 +33,5 @@ export const FormLimits = {
   MAX_TEXT_LENGTH: 400,
   MAX_RATING: 10,
 };
+
+export const errorsToShow = [400, 401, 403, 504];

@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthStatus } from '../const';
 import { Films, Film } from '../types/film';
 import { Reviews } from '../types/review';
+import { Error } from '../types/error';
 
 export const changeGenre = createAction<{genre: string}>('list/changeGenre');
 export const showAll = createAction('list/showAll');
@@ -18,3 +19,4 @@ export const setIsReviewPosted = createAction<boolean>('setIsReviewPosted');
 export const loadPromo = createAction<Film>('list/getPromo');
 export const setIsPromoLoaded = createAction<boolean>('list/setIsPromoLoaded');
 export const loadFavList = createAction<Films>('list/loadFavList');
+export const setError = createAction<null | Error>('setError');

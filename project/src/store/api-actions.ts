@@ -176,3 +176,12 @@ export const addToFav = createAsyncThunk<void, FavPost, {
     dispatch(action.loadFilm(data));
   }
 );
+
+export const errorCleaner = createAsyncThunk(
+  'errorCleaner',
+  () => {
+    setTimeout(() => {
+      action.setError(null);
+    }, 5000);
+  }
+);
