@@ -11,7 +11,7 @@ function SignIn(): JSX.Element {
   const [isLoginValid, setIsLoginlValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const {error} = useAppSelector((state) => state);
-  const passRegExp = /^[0-9a-zA-Z]+$/;
+  const passRegExp = /^[a-zA-Z]+[0-9]+|[0-9]+[a-zA-z]+$/;
   const emailRegexp = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
 
   const onLoginChange = () => {
