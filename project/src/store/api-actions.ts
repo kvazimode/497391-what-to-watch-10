@@ -175,8 +175,10 @@ export const addToFav = createAsyncThunk<void, FavPost, {
     const {data} = await api.post<Film>(`/favorite/${filmId}/${isFav}`, {filmId, isFav});
     if (type === 'promo') {
       dispatch(action.loadPromo(data));
+      dispatch(fetchFavList());
       return;
     }
     dispatch(action.loadFilm(data));
+    dispatch(fetchFavList());
   }
 );
