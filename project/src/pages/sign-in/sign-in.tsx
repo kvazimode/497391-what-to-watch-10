@@ -1,6 +1,7 @@
 import { useRef, FormEvent, useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { errorCode } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/api-actions';
 
@@ -51,7 +52,7 @@ function SignIn(): JSX.Element {
         <form action="#" className="sign-in__form" onSubmit={onSubmit}>
           <div className="sign-in__message">
             <p>
-              {error !== null && error.code === 403 && 'Dont know this login/pass combination'}
+              {error !== null && error.code === errorCode.Forbidden && 'Dont know this login/pass combination'}
               {isBothNotValid && 'These login and password are not valid'}
               {isPasswordValidOnly && 'Your login is not valid'}
               {isLoginValidOnly && 'Your password is not valid'}

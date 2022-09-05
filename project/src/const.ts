@@ -34,4 +34,11 @@ export const FormLimits = {
   MAX_RATING: 10,
 };
 
-export const errorsToShow = [400, 403, 504];
+export enum errorCode {
+  BadRequest = 400,
+  Unauthorized = 401,
+  Forbidden  = 403,
+  Timeout = 504,
+};
+
+export const errorsToShow = [errorCode.BadRequest, errorCode.Forbidden, errorCode.Timeout];
