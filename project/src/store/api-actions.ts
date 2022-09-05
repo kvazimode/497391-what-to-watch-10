@@ -88,9 +88,12 @@ export const fetchFavList = createAsyncThunk<void, undefined, {
 }>(
   'list/fetchFavList',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Films>(ApiRoute.Favorite);
-    dispatch(action.loadFavList(data));
-    dispatch(action.setIsDataLoaded(true));
+    try {
+      const {data} = await api.get<Films>(ApiRoute.Favorite);
+      dispatch(action.loadFavList(data));
+    } catch {
+      dispatch(action.loadFavList([]));
+    }
   }
 );
 
@@ -120,12 +123,12 @@ export const checkAuth = createAsyncThunk<void, undefined, {
 }>(
   'checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(ApiRoute.Login);
+    const data = await api.get(ApiRoute.Login);
+    if (data) {
       dispatch(action.setAuthStatus(AuthStatus.Auth));
-    } catch {
-      dispatch(action.setAuthStatus(AuthStatus.NoAuth));
+      return;
     }
+    dispatch(action.setAuthStatus(AuthStatus.NoAuth));
   }
 );
 
@@ -172,8 +175,10 @@ export const addToFav = createAsyncThunk<void, FavPost, {
     const {data} = await api.post<Film>(`/favorite/${filmId}/${isFav}`, {filmId, isFav});
     if (type === 'promo') {
       dispatch(action.loadPromo(data));
+      dispatch(fetchFavList());
       return;
     }
     dispatch(action.loadFilm(data));
+    dispatch(fetchFavList());
   }
 );
